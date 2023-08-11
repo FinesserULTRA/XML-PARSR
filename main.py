@@ -11,11 +11,11 @@ def preprocess_xml(xml_content):
 def split_into_chunks(file_path, chunk_size):
     chunks = []
     current_chunk = ""
-
+    file_path = 'Cleaned.xml'
     with open(file_path, 'r', encoding='utf-8') as file:
         for line in file:
             current_chunk += line
-            if line.strip() == "</article>":  # Replace with your root element
+            if line.strip() == "</dblp>":  # Replace with your root element
                 chunks.append(current_chunk)
                 current_chunk = ""
     return chunks
@@ -24,18 +24,19 @@ def split_into_chunks(file_path, chunk_size):
 def process_chunk(chunk):
     root = ET.fromstring(chunk)
     for element in root:
-        print(f"{element.tag}: {element.text}")
-
+        print(f"{element.tag}: {element.attrib}")
+        for e in element:
+            print(f"{e.tag}: {e.text}")
 
 def main():
-    xml_file_path = 'dblp.xml'
+    xml_file_path = 'Cleaned.xml'
     chunk_size = 10000  # Adjust this based on your system's memory capacity
 
     with open(xml_file_path, 'r', encoding='utf-8') as file:
         xml_content = file.read()
 
     preprocessed_xml = preprocess_xml(xml_content)
-    chunks = split_into_chunks(xml_file_path, chunk_size)
+    chunks = split_into_chunks(preprocessed_xml, chunk_size)
 
     for chunk in chunks:
         process_chunk(chunk)

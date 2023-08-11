@@ -18,7 +18,7 @@ def clean_xml_file(input_file, output_file):
 
 
 input_xml_file = 'dblp.xml'
-output_xml_file = 'output_cleaned.xml'
+output_xml_file = 'Cleaned.xml'
 
 # Clean the XML file
 clean_xml_file(input_xml_file, output_xml_file)
